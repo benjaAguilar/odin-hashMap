@@ -102,7 +102,7 @@ export class LinkedList{
             string += `(${node.value}) -> `;
             node = node.next;
         }
-        string += `(${node.value}) -> null`;
+        string += `(${node.value}) -> ${node.next}`;
         return string;
     }
 
@@ -135,6 +135,8 @@ export class LinkedList{
 
         if(nextNode === undefined){
             this.pop();
+            prevNode.next = null;
+            return;
         }
 
         prevNode.next = nextNode;

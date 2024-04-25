@@ -20,7 +20,7 @@ class HashMap{
 
     //test if the array has to grow
     hasToGrow(){
-        if(Math.round(this.size * this.growFactor) >= this.arr.length){
+        if(Math.round(this.arr.length * this.growFactor) <= this.size){
             this.arr.push(undefined);
             console.log('grows');
         }
@@ -133,5 +133,4 @@ console.log(myMap.has('ruby')); //false
 
 //remove a key!
 console.log(myMap.remove(''));
-console.log(myMap.arr[6]);
 console.log(myMap.arr[0]);
