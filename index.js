@@ -2,7 +2,7 @@ import { Node, LinkedList } from "./linkedLists.js";
 
 class HashMap{
     constructor(arrSize){
-        this.arr = new Array(arrSize).fill(undefined);
+        this.arr = new Array(arrSize);
         this.size = 0;
         this.growFactor = 0.75;
     }
@@ -107,7 +107,60 @@ class HashMap{
         let i = list.find(key);
         list.removeAt(i);
         return true;
+    }
 
+    length(){
+        return this.size;
+    }
+
+    clear(){
+        this.arr = new Array(16);
+    }
+
+    collect(){
+        let keys = [];
+        let values = [];
+        let keysAndVal = [];
+        this.arr.forEach(list => {
+            let bucket = list.head;
+
+            //if bucket exists enter here
+            if(bucket != undefined){
+                //if the lined list is bigger than one iterate over the list
+                if(list.size() > 1){
+                    while(bucket.next != null){
+                        keys.push(bucket.key);
+                        values.push(bucket.value);
+                        keysAndVal.push([bucket.key, bucket.value]);
+                        bucket = bucket.next;
+                    }
+                } else{
+                    keys.push(bucket.key);
+                    values.push(bucket.value);
+                    keysAndVal.push([bucket.key, bucket.value]);
+                }
+            }
+        });
+        return {
+            keys,
+            values,
+            keysAndVal
+        }
+    }
+
+    keys(){
+        let data = this.collect();
+        return data.keys;
+    }
+
+    values(){
+        let data = this.collect();
+        return data.values;
+    }
+
+    entries(){
+        let data = this.collect();
+        return data.keysAndVal;
     }
 
 }
@@ -134,3 +187,8 @@ console.log(myMap.has('ruby')); //false
 //remove a key!
 console.log(myMap.remove(''));
 console.log(myMap.arr[0]);
+
+//show keys, values and entries!
+console.log(myMap.keys());
+console.log(myMap.values());
+console.log(myMap.entries());
